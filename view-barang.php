@@ -41,10 +41,14 @@ include 'conn.php';
     <h2 class="text-center">Tabel Stok Barang</h2>
     <br>
 
-    <!-- Button trigger modal Add-->
-    <button type="button" class="btn btn-outline-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalAdd">
-        Add
-    </button>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
+        <a onclick="window.open('export-pdf.php', '_blank')" class="btn btn-success ">Export PDF</a>
+        <a onclick="window.open('export-excel.php', '_blank')" class="btn btn-success ">Export Excel</a>
+        <!-- Button trigger modal Add-->
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalAdd">
+            Add
+        </button>
+    </div>
 
     <!-- data tabel -->
     <table class="table">
