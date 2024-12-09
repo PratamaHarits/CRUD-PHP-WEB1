@@ -31,7 +31,7 @@ include 'conn.php';
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
-                    <button class="btn btn-danger" type="submit">Logout</button>
+                    <a href="logout.php" class="btn btn-danger" type="submit">Logout</a>
                 </form>
             </div>
         </div>
