@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
     } else {
         echo "<script>
         alert('Foto Gagal Disimpan');
-        window.location='alternatifView.php'
+        window.location='view-barang.php'
         </script>";
     }
 }

@@ -11,7 +11,7 @@ include 'conn.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Sistem Informasi Swalayan</title>
 
     <!-- link cdn css bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -41,8 +41,8 @@ include 'conn.php';
     <h2 class="text-center">Tabel Stok Barang</h2>
     <br>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-outline-primary mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <!-- Button trigger modal Add-->
+    <button type="button" class="btn btn-outline-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalAdd">
         Add
     </button>
 
@@ -73,7 +73,10 @@ include 'conn.php';
                     <td><img src="uploadFoto/<?php echo $dataBarang['barang_foto'] ?>" alt="" width="100px"></td>
                     <td>
                         <!-- button edit dan hapus -->
-                        <button type="button" class="btn btn-outline-warning">Edit</button>
+                        <!-- Button trigger modal Edit-->
+                        <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalEdit<?php echo $dataBarang['barang_id'] ?>">
+                            Edit
+                        </button>
                         <a href="logic-delete-barang.php?id=<?= $dataBarang['barang_id']; ?>" class="btn btn-outline-danger" onclick=" return confirm('Hapus data <?php echo $dataBarang['barang_nama'] ?>')">Delete</a>
                     </td>
                 </tr>
@@ -88,8 +91,8 @@ include 'conn.php';
 
 </html>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Add-->
+<div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -130,3 +133,53 @@ include 'conn.php';
         </div>
     </div>
 </div>
+
+<!-- Modal Edit -->
+<?php
+$data = $conn->query("SELECT * FROM tb_barang ORDER BY barang_id");
+while ($data_barang = mysqli_fetch_array($data)) { ?>
+    <div class="modal fade" id="modalEdit<?php echo $data_barang['barang_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Ubah Data</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" enctype="multipart/form-data" action="logic-edit-barang.php">
+                        <!-- input barang_id -->
+                        <input type="hidden" class="form-control" id="idBarang" name="idBarang" value="<?= $data_barang['barang_id'] ?>">
+                        <div class="row mb-3">
+                            <label for="kodeBarang" class="col-sm-2 col-form-label">Kode Barang</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="kodeBarang" name="kodeBarang" value="<?php echo $data_barang['barang_kode'] ?>">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="namaBarang" class="col-sm-2 col-form-label">Nama Barang</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="namaBarang" name="namaBarang" value="<?php echo $data_barang['barang_nama'] ?>">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="hargaBarang" class="col-sm-2 col-form-label">Harga Barang</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="hargaBarang" name="hargaBarang" value="<?php echo $data_barang['barang_harga'] ?>">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="fotoBarang" class="col-sm-2 col-form-label">Foto Barang</label>
+                            <div class="col-sm-10">
+                                <img src="uploadFoto/<?php echo $data_barang['barang_foto'] ?>" alt="" width="100px">
+                                <input type="file" class="form-control" id="fotoBarang" name="fotoBarang">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>

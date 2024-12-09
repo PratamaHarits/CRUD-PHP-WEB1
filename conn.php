@@ -1,7 +1,7 @@
 <?php
 
 // koneksi
-$conn = mysqli_connect('localhost', 'root', '', 'db_bengkel');
+$conn = mysqli_connect('localhost', 'root', '', 'db_swalayan');
 
 // cek koneksi
 // if ($conn) {
